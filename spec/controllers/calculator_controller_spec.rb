@@ -10,7 +10,7 @@ RSpec.describe CalculatorController, :type => :controller do
       expect(response).to be_success
       expect(response).to have_http_status(200)
       #checking calculation result
-      expect(response.body).to include("30")
+      expect(response.body.to_f).to eq(30.0)
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe CalculatorController, :type => :controller do
       expect(response).to be_success
       expect(response).to have_http_status(200)
       #checking calculation result
-      expect(response.body).to include("-10")
+      expect(response.body.to_f).to eq(-10.0)
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe CalculatorController, :type => :controller do
       expect(response).to be_success
       expect(response).to have_http_status(200)
       #checking calculation result
-      expect(response.body).to include("10")
+      expect(response.body.to_f).to eq(10.0)
     end
   end
 
@@ -46,7 +46,43 @@ RSpec.describe CalculatorController, :type => :controller do
       expect(response).to be_success
       expect(response).to have_http_status(200)
       #checking calculation result
-      expect(response.body).to include("3")
+      expect(response.body.to_f).to eq(3)
+    end
+  end
+
+  describe "POST #cube_root" do
+    it "with valid params do" do
+      #sending params to division action with xhr
+      xhr :post, :cube_root, :first_value => 27
+      #checking response
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+      #checking calculation result
+      expect(response.body.to_f).to eq(3)
+    end
+  end
+
+  describe "POST #sinus" do
+    it "with valid params do" do
+      #sending params to division action with xhr
+      xhr :post, :sinus, :first_value => 0
+      #checking response
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+      #checking calculation result
+      expect(response.body.to_f).to eq(0)
+    end
+  end
+
+  describe "POST #cosinus" do
+    it "with valid params do" do
+      #sending params to division action with xhr
+      xhr :post, :cosinus, :first_value => 0
+      #checking response
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+      #checking calculation result
+      expect(response.body.to_f).to eq(1)
     end
   end
 
