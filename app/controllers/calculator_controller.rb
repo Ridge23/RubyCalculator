@@ -14,13 +14,19 @@ class CalculatorController < ApplicationController
   end
 
   def division
-    division = params[:first_value].to_f / params[:second_value].to_f
-    render :text => division
+    if  params[:second_value].to_f == 0
+      render :text => 'division by zero', status: :bad_request
+    else
+      render :text => params[:first_value].to_f / params[:second_value].to_f
+    end
   end
 
   def square_root
-    square_root = Math.sqrt(params[:first_value].to_f)
-    render :text => square_root
+    if params[:first_value].to_f < 0
+      render :text => 'less then 0', status: :bad_request
+    else
+      render :text => Math.sqrt(params[:first_value].to_f)
+    end
   end
 
   def cube_root
